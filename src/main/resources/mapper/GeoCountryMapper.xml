@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mogujie.global.orca.sys.dal.mapper.GeoCountryMapper">
+  <resultMap id="BaseResultMap" type="GeoCountry">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="continent" jdbcType="VARCHAR" property="continent" />
+    <result column="capital" jdbcType="VARCHAR" property="capital" />
+    <result column="languages" jdbcType="VARCHAR" property="languages" />
+    <result column="geonameId" jdbcType="BIGINT" property="geonameId" />
+    <result column="south" jdbcType="DOUBLE" property="south" />
+    <result column="isoAlpha3" jdbcType="VARCHAR" property="isoAlpha3" />
+    <result column="north" jdbcType="DOUBLE" property="north" />
+    <result column="fipsCode" jdbcType="VARCHAR" property="fipsCode" />
+    <result column="population" jdbcType="VARCHAR" property="population" />
+    <result column="east" jdbcType="DOUBLE" property="east" />
+    <result column="isoNumeric" jdbcType="VARCHAR" property="isoNumeric" />
+    <result column="areaInSqKm" jdbcType="VARCHAR" property="areaInSqKm" />
+    <result column="countryCode" jdbcType="VARCHAR" property="countryCode" />
+    <result column="west" jdbcType="DOUBLE" property="west" />
+    <result column="countryName" jdbcType="VARCHAR" property="countryName" />
+    <result column="postalCodeFormat" jdbcType="VARCHAR" property="postalCodeFormat" />
+    <result column="continentName" jdbcType="VARCHAR" property="continentName" />
+    <result column="currencyCode" jdbcType="VARCHAR" property="currencyCode" />
+    <result column="created" jdbcType="INTEGER" property="created" />
+    <result column="updated" jdbcType="INTEGER" property="updated" />
+    <result column="isDeleted" jdbcType="TINYINT" property="isDeleted" />
+    <result column="locales" jdbcType="VARCHAR" property="locales" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, continent, capital, languages, geonameId, south, isoAlpha3, north, fipsCode,
+    population, east, isoNumeric, areaInSqKm, countryCode, west, countryName, postalCodeFormat,
+    continentName, currencyCode, created, updated, isDeleted, locales
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from geo_country
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <select id="select" resultType="GeoCountry">
+      select
+      <include refid="Base_Column_List" />
+      from geo_country
+      <where>
+        <if test="parms != null and parms.containsKey('search') != null">
+          and (  continent like concat('%', #{parms.search}, '%')
+              or capital like concat('%', #{parms.search}, '%')
+              or countryCode like concat('%', #{parms.search}, '%')
+              or countryCode like concat('%', #{parms.search}, '%')
+              or countryName like concat('%', #{parms.search}, '%')
+              or continentName like concat('%', #{parms.search}, '%')
+              or currencyCode like concat('%', #{parms.search}, '%')
+          )
+        </if>
+        <if test="continent != null">
+          and continent = #{continent,jdbcType=VARCHAR}
+        </if>
+        <if test="capital != null">
+          and capital = #{capital}
+        </if>
+        <if test="languages != null">
+          and languages = #{languages}
+        </if>
+        <if test="geonameId != null">
+          and geonameId = #{geonameId}
+        </if>
+        <if test="south != null">
+          and south  = #{south}
+        </if>
+        <if test="isoAlpha3 != null">
+          and isoAlpha3 = #{isoAlpha3}
+        </if>
+        <if test="north != null">
+          and north = #{north}
+        </if>
+        <if test="fipsCode != null">
+          and fipsCode = #{fipsCode}
+        </if>
+        <if test="population != null">
+          and population = #{population}
+        </if>
+        <if test="east != null">
+          and east = #{east}
+        </if>
+        <if test="isoNumeric != null">
+          and isoNumeric = #{isoNumeric}
+        </if>
+        <if test="areaInSqKm != null">
+          and areaInSqKm = #{areaInSqKm}
+        </if>
+        <if test="countryCode != null">
+          and countryCode = #{countryCode}
+        </if>
+        <if test="west != null">
+          and west = #{west}
+        </if>
+        <if test="countryName != null">
+          and countryName = #{countryName}
+        </if>
+        <if test="postalCodeFormat != null">
+          and postalCodeFormat = #{postalCodeFormat}
+        </if>
+        <if test="continentName != null">
+          and continentName = #{continentName}
+        </if>
+        <if test="currencyCode != null">
+          and currencyCode = #{currencyCode}
+        </if>
+        <if test="created != null">
+          and created = #{created}
+        </if>
+        <if test="updated != null">
+          and updated = #{updated}
+        </if>
+        <if test="isDeleted != null">
+          and isDeleted = #{isDeleted}
+        </if>
+        <if test="locales != null">
+          and locales = #{locales}
+        </if>
+      </where>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from geo_country
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="GeoCountry">
+    insert into geo_country (id, continent, capital,
+      languages, geonameId, south,
+      isoAlpha3, north, fipsCode,
+      population, east, isoNumeric,
+      areaInSqKm, countryCode, west,
+      countryName, postalCodeFormat, continentName,
+      currencyCode, created, updated,
+      isDeleted,locales)
+    values (#{id,jdbcType=BIGINT}, #{continent,jdbcType=VARCHAR}, #{capital,jdbcType=VARCHAR},
+      #{languages,jdbcType=VARCHAR}, #{geonameId}, #{south,jdbcType=DOUBLE},
+      #{isoAlpha3}, #{north,jdbcType=DOUBLE}, #{fipsCode},
+      #{population,jdbcType=VARCHAR}, #{east,jdbcType=DOUBLE}, #{isoNumeric},
+      #{areaInSqKm}, #{countryCode}, #{west,jdbcType=DOUBLE},
+      #{countryName}, #{postalCodeFormat}, #{continentName},
+      #{currencyCode}, #{created,jdbcType=INTEGER}, #{updated,jdbcType=INTEGER},
+      #{isDeleted},#{locales})
+  </insert>
+  <insert id="insertSelective" parameterType="GeoCountry">
+    insert into geo_country
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="continent != null">
+        continent,
+      </if>
+      <if test="capital != null">
+        capital,
+      </if>
+      <if test="languages != null">
+        languages,
+      </if>
+      <if test="geonameId != null">
+        geonameId,
+      </if>
+      <if test="south != null">
+        south,
+      </if>
+      <if test="isoAlpha3 != null">
+        isoAlpha3,
+      </if>
+      <if test="north != null">
+        north,
+      </if>
+      <if test="fipsCode != null">
+        fipsCode,
+      </if>
+      <if test="population != null">
+        population,
+      </if>
+      <if test="east != null">
+        east,
+      </if>
+      <if test="isoNumeric != null">
+        isoNumeric,
+      </if>
+      <if test="areaInSqKm != null">
+        areaInSqKm,
+      </if>
+      <if test="countryCode != null">
+        countryCode,
+      </if>
+      <if test="west != null">
+        west,
+      </if>
+      <if test="countryName != null">
+        countryName,
+      </if>
+      <if test="postalCodeFormat != null">
+        postalCodeFormat,
+      </if>
+      <if test="continentName != null">
+        continentName,
+      </if>
+      <if test="currencyCode != null">
+        currencyCode,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="updated != null">
+        updated,
+      </if>
+      <if test="isDeleted != null">
+        isDeleted,
+      </if>
+      <if test="locales != null">
+        locales,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="continent != null">
+        #{continent,jdbcType=VARCHAR},
+      </if>
+      <if test="capital != null">
+        #{capital,jdbcType=VARCHAR},
+      </if>
+      <if test="languages != null">
+        #{languages,jdbcType=VARCHAR},
+      </if>
+      <if test="geonameId != null">
+        #{geonameId},
+      </if>
+      <if test="south != null">
+        #{south,jdbcType=DOUBLE},
+      </if>
+      <if test="isoalpha3 != null">
+        #{isoalpha3,jdbcType=VARCHAR},
+      </if>
+      <if test="north != null">
+        #{north,jdbcType=DOUBLE},
+      </if>
+      <if test="fipsCode != null">
+        #{fipsCode},
+      </if>
+      <if test="population != null">
+        #{population,jdbcType=VARCHAR},
+      </if>
+      <if test="east != null">
+        #{east,jdbcType=DOUBLE},
+      </if>
+      <if test="isoNumeric != null">
+        #{isoNumeric},
+      </if>
+      <if test="areaInSqKm != null">
+        #{areaInSqKm},
+      </if>
+      <if test="countryCode != null">
+        #{countryCode},
+      </if>
+      <if test="west != null">
+        #{west,jdbcType=DOUBLE},
+      </if>
+      <if test="countryName != null">
+        #{countryName},
+      </if>
+      <if test="postalCodeFormat != null">
+        #{postalCodeFormat},
+      </if>
+      <if test="continentName != null">
+        #{continentName},
+      </if>
+      <if test="currencyCode != null">
+        #{currencyCode},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=INTEGER},
+      </if>
+      <if test="updated != null">
+        #{updated,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted},
+      </if>
+      <if test="locales != null">
+        #{locales},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective"
+          parameterType="GeoCountry">
+    update geo_country
+    <set>
+      <if test="continent != null">
+        continent = #{continent,jdbcType=VARCHAR},
+      </if>
+      <if test="capital != null">
+        capital = #{capital,jdbcType=VARCHAR},
+      </if>
+      <if test="languages != null">
+        languages = #{languages,jdbcType=VARCHAR},
+      </if>
+      <if test="geonameId != null">
+        geonameId = #{geonameId},
+      </if>
+      <if test="south != null">
+        south = #{south,jdbcType=DOUBLE},
+      </if>
+      <if test="isoAlpha3 != null">
+        isoAlpha3 = #{isoAlpha3},
+      </if>
+      <if test="north != null">
+        north = #{north,jdbcType=DOUBLE},
+      </if>
+      <if test="fipsCode != null">
+        fipsCode = #{fipsCode},
+      </if>
+      <if test="population != null">
+        population = #{population,jdbcType=VARCHAR},
+      </if>
+      <if test="east != null">
+        east = #{east,jdbcType=DOUBLE},
+      </if>
+      <if test="isoNumeric != null">
+        isoNumeric = #{isoNumeric},
+      </if>
+      <if test="areaInSqKm != null">
+        areaInSqKm = #{areaInSqKm},
+      </if>
+      <if test="countryCode != null">
+        countryCode = #{countryCode},
+      </if>
+      <if test="west != null">
+        west = #{west,jdbcType=DOUBLE},
+      </if>
+      <if test="countryName != null">
+        countryName = #{countryName},
+      </if>
+      <if test="postalCodeFormat != null">
+        postalCodeFormat = #{postalCodeFormat},
+      </if>
+      <if test="continentName != null">
+        continentName = #{continentName},
+      </if>
+      <if test="currencyCode != null">
+        currencyCode = #{currencyCode},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=INTEGER},
+      </if>
+      <if test="updated != null">
+        updated = #{updated,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null">
+        isDeleted = #{isDeleted},
+      </if>
+      <if test="locales != null">
+        locales = #{locales},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey"
+          parameterType="GeoCountry">
+    update geo_country
+    set continent = #{continent,jdbcType=VARCHAR},
+      capital = #{capital,jdbcType=VARCHAR},
+      languages = #{languages,jdbcType=VARCHAR},
+      geonameId = #{geonameId},
+      south = #{south,jdbcType=DOUBLE},
+      isoAlpha3 = #{isoAlpha3},
+      north = #{north,jdbcType=DOUBLE},
+      fipsCode = #{fipscode,jdbcType=VARCHAR},
+      population = #{population,jdbcType=VARCHAR},
+      east = #{east,jdbcType=DOUBLE},
+      isoNumeric = #{isoNumeric},
+      areaInSqKm = #{areaInSqKm},
+      countryCode = #{countryCode},
+      west = #{west,jdbcType=DOUBLE},
+      countryName = #{countryName},
+      postalCodeFormat = #{postalCodeFormat},
+      continentName = #{continentName},
+      currencyCode = #{currencyCode},
+      created = #{created,jdbcType=INTEGER},
+      updated = #{updated,jdbcType=INTEGER},
+      isDeleted = #{isDeleted},
+        locales = #{locales}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByGeonameidAndLocalesSelective"
+          parameterType="GeoCountry">
+    update geo_country
+    <set>
+      <if test="continent != null">
+        continent = #{continent,jdbcType=VARCHAR},
+      </if>
+      <if test="capital != null">
+        capital = #{capital,jdbcType=VARCHAR},
+      </if>
+      <if test="languages != null">
+        languages = #{languages,jdbcType=VARCHAR},
+      </if>
+      <if test="geonameId != null">
+        geonameId = #{geonameId},
+      </if>
+      <if test="south != null">
+        south = #{south,jdbcType=DOUBLE},
+      </if>
+      <if test="isoAlpha3 != null">
+        isoAlpha3 = #{isoAlpha3},
+      </if>
+      <if test="north != null">
+        north = #{north,jdbcType=DOUBLE},
+      </if>
+      <if test="fipsCode != null">
+        fipsCode = #{fipsCode},
+      </if>
+      <if test="population != null">
+        population = #{population,jdbcType=VARCHAR},
+      </if>
+      <if test="east != null">
+        east = #{east,jdbcType=DOUBLE},
+      </if>
+      <if test="isoNumeric != null">
+        isoNumeric = #{isoNumeric},
+      </if>
+      <if test="areaInSqKm != null">
+        areaInSqKm = #{areaInSqKm},
+      </if>
+      <if test="countryCode != null">
+        countryCode = #{countryCode},
+      </if>
+      <if test="west != null">
+        west = #{west,jdbcType=DOUBLE},
+      </if>
+      <if test="countryName != null">
+        countryName = #{countryName},
+      </if>
+      <if test="postalCodeFormat != null">
+        postalCodeFormat = #{postalCodeFormat},
+      </if>
+      <if test="continentName != null">
+        continentName = #{continentName},
+      </if>
+      <if test="currencyCode != null">
+        currencyCode = #{currencyCode},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=INTEGER},
+      </if>
+      <if test="updated != null">
+        updated = #{updated,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null">
+        isDeleted = #{isDeleted},
+      </if>
+      <if test="locales != null">
+        locales = #{locales},
+      </if>
+    </set>
+    where   locales = #{locales}
+    and geonameId = #{geonameId}
+  </update>
+</mapper>

@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haibao.geoip.mapper.GeoAreaMapper">
+  <resultMap id="BaseResultMap" type="com.haibao.geoip.domain.model.GeoArea">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="adminCode1" jdbcType="VARCHAR" property="adminCode1" />
+    <result column="lng" jdbcType="VARCHAR" property="lng" />
+    <result column="geonameId" jdbcType="BIGINT" property="geonameId" />
+    <result column="toponymName" jdbcType="VARCHAR" property="toponymName" />
+    <result column="countryId" jdbcType="VARCHAR" property="countryId" />
+    <result column="fcl" jdbcType="VARCHAR" property="fcl" />
+    <result column="population" jdbcType="BIGINT" property="population" />
+    <result column="countryCode" jdbcType="VARCHAR" property="countryCode" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="fclName" jdbcType="VARCHAR" property="fclName" />
+    <result column="adminCodes1_ISO3166_2" jdbcType="VARCHAR" property="admincodes1Iso31662" />
+    <result column="countryName" jdbcType="VARCHAR" property="countryName" />
+    <result column="fcodeName" jdbcType="VARCHAR" property="fcodeName" />
+    <result column="adminName1" jdbcType="VARCHAR" property="adminName1" />
+    <result column="lat" jdbcType="VARCHAR" property="lat" />
+    <result column="fcode" jdbcType="VARCHAR" property="fcode" />
+    <result column="locales" jdbcType="VARCHAR" property="locales" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="pGeonameId" jdbcType="BIGINT" property="pGeonameId" />
+    <result column="created" jdbcType="INTEGER" property="created" />
+    <result column="updated" jdbcType="INTEGER" property="updated" />
+    <result column="isDeleted" jdbcType="TINYINT" property="isDeleted" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, adminCode1, lng, geonameId, toponymName, countryId, fcl, population, countryCode,
+    `name`, fclName, adminCodes1_ISO3166_2, countryName, fcodeName, adminName1, lat, fcode,
+    locales, `level`, pGeonameId, created, updated, isDeleted
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from geo_area
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="select" resultType="com.haibao.geoip.domain.model.GeoArea">
+    select
+    <include refid="Base_Column_List" />
+    from geo_area
+    <where>
+
+      <if test="id != null">
+        and id = #{id}
+      </if>
+      <if test="adminCode1 != null">
+        and adminCode1 = #{adminCode1}
+      </if>
+      <if test="lng != null">
+        and lng = #{lng}
+      </if>
+      <if test="geonameId != null">
+       and geonameId = #{geonameId}
+      </if>
+      <if test="toponymName != null">
+        and toponymName = #{toponymName}
+      </if>
+      <if test="countryId != null">
+        and countryId = #{countryId}
+      </if>
+      <if test="fcl != null">
+        and fcl = #{fcl}
+      </if>
+      <if test="population != null">
+        and population = #{population}
+      </if>
+      <if test="countryCode != null">
+        and countryCode = #{countryCode}
+      </if>
+      <if test="name != null">
+        and `name` = #{name}
+      </if>
+      <if test="fclName != null">
+        and fclName = #{fclName}
+      </if>
+      <if test="admincodes1Iso31662 != null">
+        and adminCodes1_ISO3166_2 = #{admincodes1Iso31662}
+      </if>
+      <if test="countryName != null">
+        and countryName = #{countryName}
+      </if>
+      <if test="fcodeName != null">
+        and fcodeName = #{fcodeName}
+      </if>
+      <if test="adminName1 != null">
+        and adminName1 = #{adminName1}
+      </if>
+      <if test="lat != null">
+        and lat = #{lat}
+      </if>
+      <if test="fcode != null">
+        and fcode  = #{fcode}
+      </if>
+      <if test="locales != null">
+        and locales = #{locales}
+      </if>
+      <if test="level != null">
+        and `level` = #{level}
+      </if>
+      <if test="pGeonameId != null">
+        and pGeonameId  = #{pGeonameId}
+      </if>
+
+      <if test="isDeleted != null">
+        and isDeleted  = #{isDeleted}
+      </if>
+    </where>
+
+  </select>
+
+  <select id="match" resultType="com.haibao.geoip.domain.model.GeoArea">
+    select
+    <include refid="Base_Column_List" />
+    from geo_area
+    <where>
+
+      <if test="adminCode1 != null">
+        and adminCode1 = #{adminCode1}
+      </if>
+      <if test="lng != null">
+        and lng = #{lng}
+      </if>
+      <if test="geonameId != null">
+        and geonameId = #{geonameId}
+      </if>
+      <if test="toponymName != null">
+        and toponymName LIKE CONCAT('%', #{toponymName},'%')
+      </if>
+      <if test="countryId != null">
+        and countryId = #{countryId}
+      </if>
+      <if test="fcl != null">
+        and fcl = #{fcl}
+      </if>
+      <if test="population != null">
+        and population = #{population}
+      </if>
+      <if test="countryCode != null">
+        and countryCode = #{countryCode}
+      </if>
+      <if test="name != null">
+        and `name`  LIKE CONCAT('%', #{name},'%')
+      </if>
+      <if test="fclName != null">
+        and fclName = #{fclName}
+      </if>
+      <if test="admincodes1Iso31662 != null">
+        and adminCodes1_ISO3166_2 = #{admincodes1Iso31662}
+      </if>
+      <if test="countryName != null">
+        and countryName LIKE CONCAT('%', #{countryName},'%')
+      </if>
+      <if test="fcodeName != null">
+        and fcodeName = #{fcodeName}
+      </if>
+      <if test="adminName1 != null">
+        and adminName1 = #{adminName1}
+      </if>
+      <if test="lat != null">
+        and lat = #{lat}
+      </if>
+      <if test="fcode != null">
+        and fcode  = #{fcode}
+      </if>
+      <if test="locales != null">
+        and locales = #{locales}
+      </if>
+      <if test="level != null">
+        and `level` = #{level}
+      </if>
+      <if test="pGeonameId != null">
+        and pGeonameId  = #{pGeonameId}
+      </if>
+
+      <if test="isDeleted != null">
+        and isDeleted  = #{isDeleted}
+      </if>
+    </where>
+
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from geo_area
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.haibao.geoip.domain.model.GeoArea">
+    insert into geo_area (id, adminCode1, lng,
+      geonameId, toponymName, countryId,
+      fcl, population, countryCode,
+      `name`, fclName, adminCodes1_ISO3166_2,
+      countryName, fcodeName, adminName1,
+      lat, fcode, locales,
+      `level`, pGeonameId, created,
+      updated, isDeleted)
+    values (#{id,jdbcType=BIGINT}, #{adminCode1}, #{lng,jdbcType=VARCHAR},
+      #{geonameId}, #{toponymName}, #{countryId},
+      #{fcl,jdbcType=VARCHAR}, #{population,jdbcType=BIGINT}, #{countryCode},
+      #{name,jdbcType=VARCHAR}, #{fclName}, #{admincodes1Iso31662,jdbcType=VARCHAR},
+      #{countryName}, #{fcodeName}, #{adminName1},
+      #{lat,jdbcType=VARCHAR}, #{fcode,jdbcType=VARCHAR}, #{locales},
+      #{level,jdbcType=INTEGER}, #{pGeonameId}, #{created,jdbcType=INTEGER},
+      #{updated,jdbcType=INTEGER}, #{isDeleted})
+  </insert>
+  <insert id="insertSelective" parameterType="com.haibao.geoip.domain.model.GeoArea">
+    insert into geo_area
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="adminCode1 != null">
+        adminCode1,
+      </if>
+      <if test="lng != null">
+        lng,
+      </if>
+      <if test="geonameId != null">
+        geonameId,
+      </if>
+      <if test="toponymName != null">
+        toponymName,
+      </if>
+      <if test="countryId != null">
+        countryId,
+      </if>
+      <if test="fcl != null">
+        fcl,
+      </if>
+      <if test="population != null">
+        population,
+      </if>
+      <if test="countryCode != null">
+        countryCode,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="fclName != null">
+        fclName,
+      </if>
+      <if test="admincodes1Iso31662 != null">
+        adminCodes1_ISO3166_2,
+      </if>
+      <if test="countryName != null">
+        countryName,
+      </if>
+      <if test="fcodeName != null">
+        fcodeName,
+      </if>
+      <if test="adminName1 != null">
+        adminName1,
+      </if>
+      <if test="lat != null">
+        lat,
+      </if>
+      <if test="fcode != null">
+        fcode,
+      </if>
+      <if test="locales != null">
+        locales,
+      </if>
+      <if test="level != null">
+        `level`,
+      </if>
+      <if test="pGeonameId != null">
+        pGeonameId,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="updated != null">
+        updated,
+      </if>
+      <if test="isDeleted != null">
+        isDeleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="adminCode1 != null">
+        #{adminCode1},
+      </if>
+      <if test="lng != null">
+        #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="geonameId != null">
+        #{geonameId},
+      </if>
+      <if test="toponymName != null">
+        #{toponymName},
+      </if>
+      <if test="countryId != null">
+        #{countryId},
+      </if>
+      <if test="fcl != null">
+        #{fcl,jdbcType=VARCHAR},
+      </if>
+      <if test="population != null">
+        #{population,jdbcType=BIGINT},
+      </if>
+      <if test="countryCode != null">
+        #{countryCode},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="fclname != null">
+        #{fclname,jdbcType=VARCHAR},
+      </if>
+      <if test="admincodes1Iso31662 != null">
+        #{admincodes1Iso31662,jdbcType=VARCHAR},
+      </if>
+      <if test="countryName != null">
+        #{countryName},
+      </if>
+      <if test="fcodeName != null">
+        #{fcodeName},
+      </if>
+      <if test="adminName1 != null">
+        #{adminName1},
+      </if>
+      <if test="lat != null">
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="fcode != null">
+        #{fcode,jdbcType=VARCHAR},
+      </if>
+      <if test="locales != null">
+        #{locales},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="pGeonameId != null">
+        #{pGeonameId},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=INTEGER},
+      </if>
+      <if test="updated != null">
+        #{updated,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective"
+          parameterType="com.haibao.geoip.domain.model.GeoArea">
+    update geo_area
+    <set>
+      <if test="adminCode1 != null">
+        adminCode1 = #{adminCode1},
+      </if>
+      <if test="lng != null">
+        lng = #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="geonameId != null">
+        geonameId = #{geonameId},
+      </if>
+      <if test="toponymName != null">
+        toponymName = #{toponymName},
+      </if>
+      <if test="countryId != null">
+        countryId = #{countryId},
+      </if>
+      <if test="fcl != null">
+        fcl = #{fcl,jdbcType=VARCHAR},
+      </if>
+      <if test="population != null">
+        population = #{population,jdbcType=BIGINT},
+      </if>
+      <if test="countryCode != null">
+        countryCode = #{countryCode},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="fclName != null">
+        fclName = #{fclName},
+      </if>
+      <if test="admincodes1Iso31662 != null">
+        adminCodes1_ISO3166_2 = #{admincodes1Iso31662,jdbcType=VARCHAR},
+      </if>
+      <if test="countryName != null">
+        countryName = #{countryName},
+      </if>
+      <if test="fcodeName != null">
+        fcodeName = #{fcodeName},
+      </if>
+      <if test="adminName1 != null">
+        adminName1 = #{adminName1},
+      </if>
+      <if test="lat != null">
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="fcode != null">
+        fcode = #{fcode,jdbcType=VARCHAR},
+      </if>
+      <if test="locales != null">
+        locales = #{locales},
+      </if>
+      <if test="level != null">
+        `level` = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="pGeonameId != null">
+        pGeonameId = #{pGeonameId},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=INTEGER},
+      </if>
+      <if test="updated != null">
+        updated = #{updated,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null">
+        isDeleted = #{isDeleted},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.haibao.geoip.domain.model.GeoArea">
+    update geo_area
+    set adminCode1 = #{adminCode1},
+      lng = #{lng,jdbcType=VARCHAR},
+      geonameId = #{geonameId},
+      toponymName = #{toponymName},
+      countryId = #{countryId},
+      fcl = #{fcl,jdbcType=VARCHAR},
+      population = #{population,jdbcType=BIGINT},
+      countryCode = #{countryCode},
+      name = #{name,jdbcType=VARCHAR},
+      fclName = #{fclName},
+      adminCodes1_ISO3166_2 = #{admincodes1Iso31662,jdbcType=VARCHAR},
+      countryName = #{countryName},
+      fcodeName = #{fcodeName},
+      adminName1 = #{adminName1},
+      lat = #{lat,jdbcType=VARCHAR},
+      fcode = #{fcode,jdbcType=VARCHAR},
+        locales = #{locales},
+      level = #{level,jdbcType=INTEGER},
+      pGeonameId = #{pGeonameId},
+      created = #{created,jdbcType=INTEGER},
+      updated = #{updated,jdbcType=INTEGER},
+      isDeleted = #{isDeleted}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByGeonameIdAndLocalesSelective" parameterType="com.haibao.geoip.domain.model.GeoArea">
+    update geo_area
+    <set>
+      <if test="adminCode1 != null">
+        adminCode1 = #{adminCode1},
+      </if>
+      <if test="lng != null">
+        lng = #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="geonameId != null">
+        geonameId = #{geonameId},
+      </if>
+      <if test="toponymName != null">
+        toponymName = #{toponymName},
+      </if>
+      <if test="countryId != null">
+        countryId = #{countryId},
+      </if>
+      <if test="fcl != null">
+        fcl = #{fcl,jdbcType=VARCHAR},
+      </if>
+      <if test="population != null">
+        population = #{population,jdbcType=BIGINT},
+      </if>
+      <if test="countryCode != null">
+        countryCode = #{countryCode},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="fclName != null">
+        fclName = #{fclName},
+      </if>
+      <if test="admincodes1Iso31662 != null">
+        adminCodes1_ISO3166_2 = #{admincodes1Iso31662,jdbcType=VARCHAR},
+      </if>
+      <if test="countryName != null">
+        countryName = #{countryName},
+      </if>
+      <if test="fcodeName != null">
+        fcodeName = #{fcodeName},
+      </if>
+      <if test="adminName1 != null">
+        adminName1 = #{adminName1},
+      </if>
+      <if test="lat != null">
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="fcode != null">
+        fcode = #{fcode,jdbcType=VARCHAR},
+      </if>
+      <if test="locales != null">
+        locales = #{locales},
+      </if>
+      <if test="level != null">
+        `level` = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="pGeonameId != null">
+        pGeonameId = #{pGeonameId},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=INTEGER},
+      </if>
+      <if test="updated != null">
+        updated = #{updated,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null">
+        isDeleted = #{isDeleted},
+      </if>
+    </set>
+    where  geonameId = #{geonameId}
+    and locales = #{locales}
+  </update>
+</mapper>
