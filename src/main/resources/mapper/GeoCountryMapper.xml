@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mogujie.global.orca.sys.dal.mapper.GeoCountryMapper">
+<mapper namespace="com.haibao.geoip.mapper.GeoCountryMapper">
   <resultMap id="BaseResultMap" type="GeoCountry">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="continent" jdbcType="VARCHAR" property="continent" />
